@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 
-/*
- * Стили компонента ImageGalleryItem
- */
+
 const ImageItem = styled.li`
   border-radius: 2px;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
   0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 `
-//  .ImageGalleryItem {}
 
 const Image = styled.img`
     width: 100%;
@@ -21,12 +18,5 @@ const Image = styled.img`
       cursor: zoom-in;
     }
 `
-//   .ImageGalleryItem-image {
-//   }
-
-//   .ImageGalleryItem-image:hover {
-//     transform: scale(1.03);
-//     cursor: zoom-in;
-//   }
 
 export {ImageItem, Image}
