@@ -4,27 +4,29 @@ import { SlMagnifier } from "react-icons/sl";
 import { Notify } from "notiflix";
 import { paramsForNotify } from "components/Notify/Notify";
 
-// const SearchBar =({handleSubmit}) => {
-    // state = {
-    //    textQuery: '',
-    // }
-
-    // onChangeInput = e => {
-    //     this.setState({ textQuery: e.currentTarget.value.trim().toLowerCase() });
-    //   }; 
-
-
     class SearchBar extends Component {
         state = {
          textQuery: '',
         };
 
-// зміни в інпуті
+        // зміни в інпуті
         onChangeInput = e => {
             this.setState({ textQuery: e.currentTarget.value.trim().toLowerCase() });
             // console.log(this.state.textQuery)
         }; 
-
+        // handleEnter = e => {
+        //     if (e.code === 'Enter') 
+        //     e.preventDefault();
+        //     this.handleSubmit(e.code);
+        //     // console.log('Press')
+        // }
+        // componentDidMount() {
+        //     document.addEventListener('keydown', this.handleEnter)
+        // }
+    
+        // componentWillUnmount() {
+        //     document.removeEventListener('keydown', this.handleEnter)
+        // }
         handleSubmit = e => {
             e.preventDefault();
             const { textQuery } = this.state;

@@ -1,15 +1,16 @@
 import {ImageItem, Image} from './ImageGalleryItem.styled'
 
 
-const ImageGalleryItem = ({item}) => {
+const ImageGalleryItem = ({item, openModal}) => {
     // console.log(item)
-        const { largeImageURL, tags, webformatURL } = item;
+    // 
+        const { tags, webformatURL, largeImageURL } = item;
   return (
     <>
     <ImageItem
       onClick={e => {
         e.preventDefault();
-        // openModal(largeImageURL, tags);
+        openModal(largeImageURL, tags);
       }}
     >
       <Image src={webformatURL} alt={tags} loading="lazy" />

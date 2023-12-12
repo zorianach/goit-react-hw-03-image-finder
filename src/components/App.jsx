@@ -1,10 +1,13 @@
 import { Component } from 'react';
 import SearchBar from './Searchbar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
+import { AppContainer } from './App.styled';
 import { Notify } from 'notiflix';
 import { paramsForNotify } from './Notify/Notify';
-// import {Header, SearchButton, SearchForm, SearchInput, ButtonLabel} from 'App.styled';
 import { getImages, onFetchError } from 'api/api';
+import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
 
 
 const perPage = 12;
@@ -15,9 +18,9 @@ class App extends Component {
     photos: null,
     page: 1,
     loading: false,
-    btnLoadMore: false,
-    // showModal: false,
-    // selectedPhoto: null,
+    buttonLoadMore: false,
+    showModal: false,
+    selectedPhoto: null,
   }
 
   componentDidUpdate(_, prevState) {
@@ -28,17 +31,15 @@ class App extends Component {
 
     if (prevSearch !== newSearch || prevPage !== newPage) {
       this.loadImages(newSearch, newPage);
-    };  
+      this.setState({ loading: true, buttonLoadMore: false});
+    }
+   ;  
   }
 
-  // loadImages = (search, page) => {
-  //   this.setState({ loading: true });
   loadImages = async() => {
     try {
-      this.setState({ loading: true });
       //ф-ія запиту з арі
       const response = await getImages(this.state.search, this.state.page)
-      // .then(data => {
       //   console.log(data);
         const { totalHits, hits } = response;
         const totalPage = Math.floor(totalHits / perPage);
@@ -50,22 +51,17 @@ class App extends Component {
         const arrPhotos = hits.map(({ id, webformatURL, largeImageURL, tags }) => (
           { id, webformatURL, largeImageURL, tags }
         ));
-        console.log(arrPhotos);       
-
-        // this.setState({
-        //   photos: arrPhotos
-        // })
-        // console.log(this.state.photos)
+        // console.log(arrPhotos);       
 
         //додаємо новий масив зображень до попереднього
         this.setState(prevState => ({
           photos: prevState.photos ? [...prevState.photos, ...arrPhotos] : arrPhotos}), 
         )
         if (totalPage > this.state.page) {
-          this.setState({ btnLoadMore: true })
+          this.setState({ buttonLoadMore: true })
           } else {
                 Notify.info("We're sorry, but you've reached the end of search results.", paramsForNotify);
-                this.setState({ btnLoadMore: false });
+                this.setState({ buttonLoadMore: false });
               };
       }
       catch(error){
@@ -77,23 +73,49 @@ class App extends Component {
       // console.log(this.state.photos)
     }
 
-
   //  запит пошуку в App з SearchBar
   handleSubmit = (searchValue) => {
     this.setState({
       search: searchValue,
+      page: 1,
+      photos: null,
       });
-      // console.log(this.state.search);
   };
 
+  handleLoadMore = () => {
+    this.setState({
+      page: this.state.page + 1,
+      loading: true,
+    })
+console.log(this.state.page)
+  } 
+
+  toggleModal = () => {
+    this.setState(({showModal}) => ({
+      showModal: !showModal
+    }))
+  }
+
+   //відкрити модалку
+   onOpenModal = (imgUrl, tag) => {
+    this.setState({ showModal: true, imgUrl, tag });
+  };
 
   render(){
     // console.log(this.state.photos)
-    const {photos} = this.state;
+    const {photos, buttonLoadMore, loading, showModal, selectedPhoto, imgUrl, tags} = this.state;
+
     return (
       <>
       <SearchBar onSubmit={this.handleSubmit}/>
-      { photos && <ImageGallery photos={photos}/>} 
+      <AppContainer>
+      { photos && <ImageGallery photos={photos} openModal={this.onOpenModal}/>}
+      {loading && <Loader />}
+      {buttonLoadMore && <Button onClick={this.handleLoadMore} />}
+      {showModal && <Modal selectedPhoto={selectedPhoto} onClose={this.toggleModal}>
+        <img src={imgUrl} alt={tags}/>
+        </Modal>}
+      </AppContainer>
       </>
     )
   }

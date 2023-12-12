@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-/*
- * Стили компонента Searchbar
- */
+
  const Header = styled.div`
  top: 0;
  left: 0;
@@ -21,13 +19,7 @@ import styled from 'styled-components';
  //  background-color: #3f51b5;
  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);`
- /* .Searchbar { */
-  
-  
-  
-  /*
-   * Стили компонента SearchForm
-   */
+
 
   const SearchForm = styled.form`
   display: flex;
@@ -38,9 +30,7 @@ import styled from 'styled-components';
     border-radius: 3px;
     overflow: hidden;
   `
-  // .SearchForm {
-  // }
-  
+ 
   const SearchButton = styled.button`
   display: inline-block;
     width: 48px;
@@ -59,11 +49,6 @@ import styled from 'styled-components';
       opacity: 1;
     }
   `
-  // .SearchForm-button {
-  // }
-  
-  // .SearchForm-button:hover {
-  // }
   
   const ButtonLabel = styled.p`
   position: absolute;
@@ -76,8 +61,6 @@ import styled from 'styled-components';
   clip-path: inset(50%);
   border: 0;
   `
-  // .SearchForm-button-label {
-  // }
   
   const SearchInput = styled.input`
   display: inline-block;
@@ -94,10 +77,5 @@ import styled from 'styled-components';
     font-size: 18px;
   }
   `
-  // .SearchForm-input {
-  // }
-  
-  // .SearchForm-input
-  
   
   export {Header, SearchButton, SearchForm, SearchInput, ButtonLabel}

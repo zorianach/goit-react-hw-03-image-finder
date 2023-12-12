@@ -2,9 +2,6 @@ import axios from 'axios';
 import { Notify } from 'notiflix';
 import { paramsForNotify } from 'components/Notify/Notify';
 
-// const BASE_URL = `https://pixabay.com/api/`;
-// const API_KEY = '40320013-0b58b3814b292a6d5e83f5f83';
-
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 
